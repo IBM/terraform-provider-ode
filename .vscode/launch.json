@@ -1,0 +1,36 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Terraform Acceptance Tests",
+      "type": "go",
+      "request": "launch",
+      "mode": "test",
+      "program": "${workspaceFolder}/internal/provider", 
+      "args": [
+        "-test.v",            
+        "-test.count=1",  
+        "-test.timeout=120m", 
+        "-test.run", "TestAcc"  
+      ],
+      "env": {
+        "TF_ACC": "1",        
+      },
+      "showLog": true,
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Debug Terraform Provider",
+      "type": "go",
+      "request": "launch",
+      "mode": "debug",
+      "program": "${workspaceFolder}",
+      "preLaunchTask": "Build Provider",
+      "postDebugTask": "Cleanup Provider",
+      "args": [
+        "-debug"
+      ],
+      "env": {}
+    }
+  ]
+}
