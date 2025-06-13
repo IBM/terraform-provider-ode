@@ -1,0 +1,39 @@
+{
+  "settingsInheritedFrom": "whitesource-config/whitesource-config@master",
+  "scanSettings": {
+    "configMode": "AUTO",
+    "enableLicenseViolations": true,
+    "baseBranches": ["main", "develop"]
+  },
+  "checkRunSettings": {
+    "vulnerableCheckRunConclusionLevel": "failure",
+    "displayMode": "diff",
+    "useMendCheckNames": true
+  },
+  "issueSettings": {
+    "minSeverityLevel": "LOW",
+    "issueType": "DEPENDENCY"
+  },
+  "remediateSettings": {
+    "workflowRules": {
+      "enabled": true
+    }
+  },
+   "hostRules": [
+    {
+      "matchHost": "https://github.ibm.com/terraformz-poc/terraformz-go-client",
+      "hostType": "go",
+      "userName": "Aman.Dalal@ibm.com",
+      "encrypted": {
+        "token": "wcBMA7q1Z1/iO+gDAQf/S5YOxmZPttFhQ8MzIhH4Dh5IQyaswAyRZyYYjH07Wzex2JZEBAyFUxujOweDg+paXg6lmWzdCIU7oi0eCuufqGiMb5HOBsDVLByNVt2sDC5bMzwMsRlxVdl9ByM3CT+fhROfFuffc6N65NzNxMSnQSlLsY4ftBo0sSJ1cuWIJVdYyFTNjdTgrCVmeVsT3IH4+kp2/sDJ1TPkQo/QBjkQxwaegMNnsNdsefq9/z/t6tePJmjxg8KsJWnr4XFWmqzIeM7O4vcuWVHv9sJpAKkk0Oef515nRqYR39ei/dhH7jkCpF6adlP8wLcEZoC+JjbNugAMjpb5xhdxJy6W8h8sd9J9ATI0qDgCAavlSZiLGRSwATF62bGzK+3y3FWwulFQ5Hc2UJfUnRyXqY1gh63Ql/BaEmEWiGc9TeT+yHCqqlkku5tcz3tLQUYAnhZMqDWT348gLGej0ozkmeciS9psBDYwZ5mghCcWFpP0Xj5O61hmLE76qn/6YDo925GOMkQ"
+      }
+    },
+   {
+      "matchHost": "https://github.ibm.com/terraformz-poc/terraformz-go-client",
+      "hostType": "github-tags",
+      "encrypted": {
+        "token": "wcBMA7q1Z1/iO+gDAQf/S5YOxmZPttFhQ8MzIhH4Dh5IQyaswAyRZyYYjH07Wzex2JZEBAyFUxujOweDg+paXg6lmWzdCIU7oi0eCuufqGiMb5HOBsDVLByNVt2sDC5bMzwMsRlxVdl9ByM3CT+fhROfFuffc6N65NzNxMSnQSlLsY4ftBo0sSJ1cuWIJVdYyFTNjdTgrCVmeVsT3IH4+kp2/sDJ1TPkQo/QBjkQxwaegMNnsNdsefq9/z/t6tePJmjxg8KsJWnr4XFWmqzIeM7O4vcuWVHv9sJpAKkk0Oef515nRqYR39ei/dhH7jkCpF6adlP8wLcEZoC+JjbNugAMjpb5xhdxJy6W8h8sd9J9ATI0qDgCAavlSZiLGRSwATF62bGzK+3y3FWwulFQ5Hc2UJfUnRyXqY1gh63Ql/BaEmEWiGc9TeT+yHCqqlkku5tcz3tLQUYAnhZMqDWT348gLGej0ozkmeciS9psBDYwZ5mghCcWFpP0Xj5O61hmLE76qn/6YDo925GOMkQ"
+      }
+    }
+  ]  
+}

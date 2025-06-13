@@ -1,0 +1,50 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Provider",
+            "type": "shell",
+            "command": "go build -gcflags='all=-N -l' -o ${workspaceFolder}/terraform-provider-ode",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Cleanup Provider",
+            "type": "shell",
+            "command": "unset TF_REATTACH_PROVIDERS && rm -f ${workspaceFolder}/terraform-provider-ode",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        },
+        {
+            "label": "Run All Acceptance Tests",
+            "type": "shell",
+            "command": "go",
+            "args": [
+                "test",
+                "-v",
+                "./...",
+                "-run",
+                "TestAcc",
+                "-timeout"
+            ],
+            "options": {
+                "env": {
+                    "TF_ACC": "1",
+                    "TF_LOG": "INFO"
+                }
+            },
+            "problemMatcher": [],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "detail": "Runs all Terraform provider acceptance tests."
+        }
+    ]
+}
