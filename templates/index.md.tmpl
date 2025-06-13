@@ -1,0 +1,41 @@
+---
+layout: ""
+page_title: "Provider: On-demand Environments (ode) provider"
+description: |-
+  The On-Demand Environments (ODE) provider allows managing of z/OS instances and Linux targets as Terraform resources.
+
+---
+
+# On-demand Environments (ODE) provider
+
+The On-Demand Environments (ODE) provider allows managing of z/OS instances and Linux targets as Terraform resources.
+
+
+## Examples 
+
+The following examples demonstrate the Terraform code to use the ODE provider in different scenarios.
+
+### Configuring the provider credentials
+
+{{ tffile "examples/provider/provider.tf" }}
+
+### Example ODE provider with data source configuration
+
+The following example shows an ODE data source struct that you can use.
+
+{{ tffile "examples/data-sources/ode_image/data-source.tf" }}
+
+### Example ODE provider with target configuration
+
+The following example shows an ODE target source struct that you can use.
+
+{{ tffile "examples/resources/ode_target/resource.tf" }}
+
+### Example of an ODE instance
+
+The following example shows an ODE instance with data source and target resource that you can use.
+
+{{ tffile "examples/resources/ode_instance/resource_data_target.tf" }}
+
+
+{{ .SchemaMarkdown | trimspace }}
