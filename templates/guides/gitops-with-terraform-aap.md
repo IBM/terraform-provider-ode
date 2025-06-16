@@ -121,4 +121,6 @@ Example: Use a webhook from GitHub to trigger an EDA rulebook that runs a playbo
 
 In this guide, we have explored how to use GitHub Hooks, Terraform, and Ansible Automation Platform, along with Event-Driven Ansible, to provision and configure IBM On-demand Environments. By leveraging these tools, you can create a robust and automated infrastructure that meets your needs.
 
+For sample codes, please visit https://github.com/IBM/terraform-ibm-z-linuxone-samples
+
 Happy automating!
