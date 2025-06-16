@@ -1,0 +1,26 @@
+# Copyright (c) IBM Corporation
+# SPDX-License-Identifier: Apache-2.0
+
+
+
+# This is the detect-secrete pre-commit config file
+#
+# Read pre-commit hook framework https://pre-commit.com/ for more details about the structure of config yaml file and how git pre-commit would invoke each hook.
+#
+# This line indicates we will use the hook from ibm/detect-secrets to run scan during committing phase.
+repos:
+  - repo: https://github.com/ibm/detect-secrets
+    # Running "pre-commit autoupdate" automatically updates rev to latest tag
+    rev: 0.13.1+ibm.62.dss
+    hooks:
+      - id: detect-secrets
+        args: [--baseline, .secrets.baseline, "--use-all-plugins",  "--fail-on-unaudited"]
+  - repo: https://github.com/hashicorp/copywrite
+    rev: v0.22.0 # Use any release tag
+    hooks:
+      - id: check-headers
+        name: Validate copyright headers
+        description: Checks if any copyright headers are missing, but does not make changes
+        entry: copywrite headers --plan
+        language: golang
+        pass_filenames: false
