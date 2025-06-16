@@ -1,0 +1,39 @@
+{
+  "settingsInheritedFrom": "whitesource-config/whitesource-config@master",
+  "scanSettings": {
+    "configMode": "AUTO",
+    "enableLicenseViolations": true,
+    "baseBranches": ["main", "develop"]
+  },
+  "checkRunSettings": {
+    "vulnerableCheckRunConclusionLevel": "failure",
+    "displayMode": "diff",
+    "useMendCheckNames": true
+  },
+  "issueSettings": {
+    "minSeverityLevel": "LOW",
+    "issueType": "DEPENDENCY"
+  },
+  "remediateSettings": {
+    "workflowRules": {
+      "enabled": true
+    }
+  },
+   "hostRules": [
+    {
+      "matchHost": "https://github.ibm.com/terraformz-poc/terraformz-go-client",
+      "hostType": "go",
+      "userName": "***REMOVED***",
+      "encrypted": {
+        "token": "***REMOVED***"
+      }
+    },
+   {
+      "matchHost": "https://github.ibm.com/terraformz-poc/terraformz-go-client",
+      "hostType": "github-tags",
+      "encrypted": {
+        "token": "***REMOVED***"
+      }
+    }
+  ]  
+}
