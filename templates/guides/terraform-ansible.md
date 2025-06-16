@@ -104,3 +104,5 @@ The Ansible playbook connects to the instance and changes the password using Ans
 - Automation: No manual steps between provisioning and configuration.
 - Consistency: Infrastructure and configuration are version-controlled and repeatable.
 - Scalability: Easily scale to multiple instances or environments.
+
+For sample codes, please visit https://github.com/IBM/terraform-ibm-z-linuxone-samples
