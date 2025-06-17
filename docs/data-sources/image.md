@@ -27,6 +27,10 @@ provider "ode" {
   ode_host     = "https://your-ode-hostname:port"
   ode_username = "your-ode-user"
   ode_password = "your-ode-password"
+  ode_tls = {
+    ca_file     = file("/path/to/ca_file")
+    server_name = "your-ode-server-name-matching-ca-certificate"
+  }
 }
 
 ###########################################################
@@ -75,28 +79,28 @@ data "ode_image" "by_label_version_flat" {
 
 ### Optional
 
-- `filter` (Attributes) Filter by label and optional version. Omit to return all images. (see [below for nested schema](#nestedatt--filter))
-- `flatten` (Boolean) When true, expose a flat layer for the first image (image_list[0]).
-- `uuid` (String) Exact image UUID lookup. Cannot be used with filter.
+- `filter` (Attributes) Filter by label and optional version, omit to return all images (see [below for nested schema](#nestedatt--filter))
+- `flatten` (Boolean) When true, expose a flat layer for the first image (image_list[0])
+- `uuid` (String) Exact image UUID lookup, cannot be used with filter
 
 ### Read-Only
 
-- `image_list` (Attributes List) List of images matching the query. (see [below for nested schema](#nestedatt--image_list))
-- `ipl_parameter` (Attributes) Shortcut to image_list[0].ipl_parameter when flatten=true. (see [below for nested schema](#nestedatt--ipl_parameter))
-- `label` (String) Shortcut to image_list[0].label when flatten=true.
-- `sysres_component_uuid` (String) Shortcut to image_list[0].sysres_component_uuid when flatten=true.
-- `version` (Number) Shortcut to image_list[0].version when flatten=true.
+- `image_list` (Attributes List) List of images matching the query (see [below for nested schema](#nestedatt--image_list))
+- `ipl_parameter` (Attributes) Shortcut to image_list[0].ipl_parameter when flatten=true (see [below for nested schema](#nestedatt--ipl_parameter))
+- `label` (String) Shortcut to image_list[0].label when flatten=true
+- `sysres_component_uuid` (String) Shortcut to image_list[0].sysres_component_uuid when flatten=true
+- `version` (Number) Shortcut to image_list[0].version when flatten=true
 
 <a id="nestedatt--filter"></a>
 ### Nested Schema for `filter`
 
 Required:
 
-- `label` (String) Image label to filter on.
+- `label` (String) Image label to filter on
 
 Optional:
 
-- `version` (Number) Image version to filter on (requires label).
+- `version` (Number) Image version to filter on (requires label)
 
 
 <a id="nestedatt--image_list"></a>
@@ -104,20 +108,20 @@ Optional:
 
 Read-Only:
 
-- `ipl_parameter` (Attributes) IPL parameters for the image. (see [below for nested schema](#nestedatt--image_list--ipl_parameter))
-- `label` (String) Label (name) of the image.
-- `sysres_component_uuid` (String) SYSRES component UUID associated with the image.
-- `uuid` (String) UUID of the image.
-- `version` (Number) Version number of the image.
+- `ipl_parameter` (Attributes) IPL parameters for the image (see [below for nested schema](#nestedatt--image_list--ipl_parameter))
+- `label` (String) Label (name) of the image
+- `sysres_component_uuid` (String) SYSRES component UUID associated with the image
+- `uuid` (String) UUID of the image
+- `version` (Number) Version number of the image
 
 <a id="nestedatt--image_list--ipl_parameter"></a>
 ### Nested Schema for `image_list.ipl_parameter`
 
 Read-Only:
 
-- `iodf_device` (String) IODF device number for IPL.
-- `load_suffix` (String) Load suffix used in the IPL.
-- `sysres_device` (String) SYSRES device number for IPL.
+- `iodf_device` (String) IODF device number for IPL
+- `load_suffix` (String) Load suffix used in the IPL
+- `sysres_device` (String) SYSRES device number for IPL
 
 
 
@@ -126,6 +130,6 @@ Read-Only:
 
 Read-Only:
 
-- `iodf_device` (String) IODF device number for IPL.
-- `load_suffix` (String) Load suffix used in the IPL.
-- `sysres_device` (String) SYSRES device number for IPL.
+- `iodf_device` (String) IODF device number for IPL
+- `load_suffix` (String) Load suffix used in the IPL
+- `sysres_device` (String) SYSRES device number for IPL
