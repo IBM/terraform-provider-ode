@@ -3,12 +3,12 @@
 page_title: "ode_target Resource - ode"
 subcategory: ""
 description: |-
-  Manages an ODE Target Environment.
+  Manages an On-Demand Environments Target Environment.
 ---
 
 # ode_target (Resource)
 
-Manages an ODE Target Environment.
+Manages an On-Demand Environments Target Environment.
 
 ## Example Usage
 
@@ -28,6 +28,10 @@ provider "ode" {
   ode_host     = "https://your-ode-hostname:port"
   ode_username = "your-ode-user"
   ode_password = "your-ode-password"
+  ode_tls = {
+    ca_file     = file("/path/to/ca_file")
+    server_name = "your-ode-server-name-matching-ca-certificate"
+  }
 }
 
 resource "ode_target" "from_json_match" {
@@ -83,50 +87,50 @@ resource "ode_target" "from_json_match" {
 
 ### Required
 
-- `dns_domain_origin` (String) The domain origin that will be appended to host names passed to the resolver.
-- `dns_ip_primary` (String) The IP address of the name server serving the Linux environment..
-- `hostname` (String) Linux host or IP for the target.
-- `iptable_setting` (Attributes) Settings specific to iptables based networking configuration. (see [below for nested schema](#nestedatt--iptable_setting))
-- `label` (String) Label for the target environment.
+- `dns_domain_origin` (String) The domain origin that will be appended to host names passed to the resolver
+- `dns_ip_primary` (String) The IP address of the name server serving the Linux environment
+- `hostname` (String) Linux host or IP for the target
+- `iptable_setting` (Attributes) Settings specific to iptables based networking configuration (see [below for nested schema](#nestedatt--iptable_setting))
+- `label` (String) Label for the target environment
 
 ### Optional
 
 > **NOTE**: [Write-only arguments](https://developer.hashicorp.com/terraform/language/resources/ephemeral#write-only-arguments) are supported in Terraform 1.11 and later.
 
-- `concurrent_transfers` (Number) Number of concurrent volume transfers. Must be >= 1. Default is 1
-- `description` (String) Optional free form description of the target.
-- `ic_port` (Number) Linux environment instance controller port number (default 8443).
-- `install_dir` (String) Directory for ODE files. Maps to `download directory`.
-- `network_type` (String) Always 'IPTABLE' for this resource.
-- `privilege_command_uuid` (String) UUID of the privilege escalation command, if required.
-- `ssh_port` (Number) SSH port to connect to the Linux host. Default is 22.
-- `ssh_target_key_file` (String, Sensitive, [Write-only](https://developer.hashicorp.com/terraform/language/resources/ephemeral#write-only-arguments)) Linux private key file content (Must specify if using key based SSH). This can also be sourced from the `SSH_KEY_FILE_PATH` environment variable.
-- `ssh_target_passphrase` (String, Sensitive, [Write-only](https://developer.hashicorp.com/terraform/language/resources/ephemeral#write-only-arguments)) Passphrase for the SSH key file, if encrypted. This can also be sourced from the `SSH_TARGET_PASSPHRASE` environment variable.
-- `ssh_target_password` (String, Sensitive, [Write-only](https://developer.hashicorp.com/terraform/language/resources/ephemeral#write-only-arguments)) Linux password for SSH access (Must specify if not using key). This can also be sourced from the `SSH_TARGET_PASSWORD` environment variable.
-- `ssh_target_user` (String, Sensitive, [Write-only](https://developer.hashicorp.com/terraform/language/resources/ephemeral#write-only-arguments)) Linux username for SSH access. This can also be sourced from the `SSH_TARGET_USER` environment variable.
-- `terminal_port_end` (Number) Ending port of an available range for 3270 terminal access.
-- `terminal_port_start` (Number) The starting port of an available range for accessing 3270 terminal.
+- `concurrent_transfers` (Number) Number of concurrent volume transfers, must be >= 1, the default value is 1
+- `description` (String) Optional free form description of the target
+- `ic_port` (Number) Linux environment instance controller port number (default 8443)
+- `install_dir` (String) Directory for On-Demand Environments files. Maps to `download directory`.
+- `network_type` (String) Always 'IPTABLE' for this resource
+- `privilege_command_uuid` (String) UUID of the privilege escalation command
+- `ssh_port` (Number) SSH port to connect to the Linux host, the default value is 22
+- `ssh_target_key_file` (String, Sensitive, [Write-only](https://developer.hashicorp.com/terraform/language/resources/ephemeral#write-only-arguments)) Linux private key file content (Must specify if using key based SSH). Alternatively, this value can be sourced from the `SSH_KEY_FILE_PATH` environment variable.
+- `ssh_target_passphrase` (String, Sensitive, [Write-only](https://developer.hashicorp.com/terraform/language/resources/ephemeral#write-only-arguments)) Passphrase for the SSH key file, if encrypted. Alternatively, this value can be sourced from the `SSH_TARGET_PASSPHRASE` environment variable.
+- `ssh_target_password` (String, Sensitive, [Write-only](https://developer.hashicorp.com/terraform/language/resources/ephemeral#write-only-arguments)) Linux password for SSH access (Must specify if not using key). Alternatively, this value can be sourced from the `SSH_TARGET_PASSWORD` environment variable.
+- `ssh_target_user` (String, Sensitive, [Write-only](https://developer.hashicorp.com/terraform/language/resources/ephemeral#write-only-arguments)) Linux username for SSH access. Alternatively, this value can be sourced from the `SSH_TARGET_USER` environment variable.
+- `terminal_port_end` (Number) Ending port of an available range for 3270 terminal access
+- `terminal_port_start` (Number) The starting port of an available range for accessing 3270 terminal
 
 ### Read-Only
 
 - `id` (String) Unique UUID of the target environment
-- `resume` (Boolean) Resume a previously failed or in progress action.
-- `status` (String) Target creation status (e.g. SUCCEEDED, FAILED).
+- `resume` (Boolean) Resume a previously failed or in progress action
+- `status` (String) Target creation status (e.g. SUCCEEDED, FAILED)
 
 <a id="nestedatt--iptable_setting"></a>
 ### Nested Schema for `iptable_setting`
 
 Required:
 
-- `tcp_forward_ports` (Attributes List) The port forwarding rules of iptables for TCP protocols. (see [below for nested schema](#nestedatt--iptable_setting--tcp_forward_ports))
-- `tcp_reroute_ports` (Attributes List) The port rerouting rules of iptables for TCP protocols. (see [below for nested schema](#nestedatt--iptable_setting--tcp_reroute_ports))
-- `udp_forward_ports` (Attributes List) The port forwarding rules of iptables for UDP protocols. (see [below for nested schema](#nestedatt--iptable_setting--udp_forward_ports))
-- `udp_reroute_ports` (Attributes List) The port rerouting rules of iptables for UDP protocols. (see [below for nested schema](#nestedatt--iptable_setting--udp_reroute_ports))
+- `tcp_forward_ports` (Attributes List) The port forwarding rules of iptables for TCP protocols (see [below for nested schema](#nestedatt--iptable_setting--tcp_forward_ports))
+- `tcp_reroute_ports` (Attributes List) The port rerouting rules of iptables for TCP protocols (see [below for nested schema](#nestedatt--iptable_setting--tcp_reroute_ports))
+- `udp_forward_ports` (Attributes List) The port forwarding rules of iptables for UDP protocols (see [below for nested schema](#nestedatt--iptable_setting--udp_forward_ports))
+- `udp_reroute_ports` (Attributes List) The port rerouting rules of iptables for UDP protocols (see [below for nested schema](#nestedatt--iptable_setting--udp_reroute_ports))
 
 Optional:
 
-- `zos_ip_address` (String) The emulated z/OS IP address. Default is 172.26.1.2
-- `zos_ssh_route_port` (Number) The Linux port that routes to z/OS ssh. Default is 2022
+- `zos_ip_address` (String) The emulated z/OS IP address, the default value is 172.26.1.2
+- `zos_ssh_route_port` (Number) The Linux port that routes to z/OS ssh, the default value is 2022
 
 <a id="nestedatt--iptable_setting--tcp_forward_ports"></a>
 ### Nested Schema for `iptable_setting.tcp_forward_ports`
@@ -142,7 +146,7 @@ Required:
 
 Required:
 
-- `linux_port` (Number) Linux port.
+- `linux_port` (Number) Linux port
 - `zos_port` (Number) z/OS port
 
 
@@ -152,7 +156,7 @@ Required:
 Required:
 
 - `end_port` (Number) Ending port
-- `start_port` (Number) Starting port.
+- `start_port` (Number) Starting port
 
 
 <a id="nestedatt--iptable_setting--udp_reroute_ports"></a>
@@ -160,7 +164,7 @@ Required:
 
 Required:
 
-- `linux_port` (Number) Linux port.
+- `linux_port` (Number) Linux port
 - `zos_port` (Number) z/OS port
 
 ## Import
