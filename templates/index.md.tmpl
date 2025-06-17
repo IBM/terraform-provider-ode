@@ -1,39 +1,45 @@
 ---
 layout: ""
-page_title: "Provider: On-demand Environments (ode) provider"
+page_title: "Provider: On-Demand Environments provider"
 description: |-
-  The On-Demand Environments (ODE) provider allows managing of z/OS instances and Linux targets as Terraform resources.
+  The On-Demand Environments provider allows managing of z/OS instances and Linux targets as Terraform resources.
 
 ---
 
-# On-demand Environments (ODE) provider
+# On-Demand Environments provider
 
-The On-Demand Environments (ODE) provider allows managing of z/OS instances and Linux targets as Terraform resources.
+The On-Demand Environments provider is used to manage On-Demand z/OS Environments with [IBM Test Accelerator for Z](https://www.ibm.com/products/test-accelerator-z) as Terraform resources.
+The On-Demand Environments provider is currently compatible with On-demand Development and Test environments for z/OS release version 1.0.2. 
 
+For installation and configuration details of On-demand Development and Test environments for z/OS, see the [documentation page](https://www.ibm.com/docs/en/test-accelerator-for-z/1.0.0). 
 
-## Examples 
+The On-Demand Environments provider is intended to be used with IBM Terraform for Z and LinuxONE.
+To learn about the Terraform for Z components, and how to install, configure, and provision infrastructure for the product 
+offering, see the [documentation website](https://www.ibm.com/docs/en/terraform-z-linuxone).
 
-The following examples demonstrate the Terraform code to use the ODE provider in different scenarios.
+## Example Usage
 
-### Configuring the provider credentials
+The following examples demonstrate how to use the On-Demand Environments provider in different scenarios.
+
+### Example of configuring provider credentials
 
 {{ tffile "examples/provider/provider.tf" }}
 
-### Example ODE provider with data source configuration
+### Example of provider with data source configuration
 
-The following example shows an ODE data source struct that you can use.
+The following example shows ode_image data source:
 
 {{ tffile "examples/data-sources/ode_image/data-source.tf" }}
 
-### Example ODE provider with target configuration
+### Example of provider with target configuration
 
-The following example shows an ODE target source struct that you can use.
+The following example shows ode_target resource: 
 
 {{ tffile "examples/resources/ode_target/resource.tf" }}
 
-### Example of an ODE instance
+### Example of an instance
 
-The following example shows an ODE instance with data source and target resource that you can use.
+The following example shows an ode_instance resource with an ode_image data source and an ode_target resource: 
 
 {{ tffile "examples/resources/ode_instance/resource_data_target.tf" }}
 

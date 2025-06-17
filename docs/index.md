@@ -1,21 +1,27 @@
 ---
 layout: ""
-page_title: "Provider: On-demand Environments (ode) provider"
+page_title: "Provider: On-Demand Environments provider"
 description: |-
-  The On-Demand Environments (ODE) provider allows managing of z/OS instances and Linux targets as Terraform resources.
+  The On-Demand Environments provider allows managing of z/OS instances and Linux targets as Terraform resources.
 
 ---
 
-# On-demand Environments (ODE) provider
+# On-Demand Environments provider
 
-The On-Demand Environments (ODE) provider allows managing of z/OS instances and Linux targets as Terraform resources.
+The On-Demand Environments provider is used to manage On-Demand z/OS Environments with [IBM Test Accelerator for Z](https://www.ibm.com/products/test-accelerator-z) as Terraform resources.
+The On-Demand Environments provider is currently compatible with On-demand Development and Test environments for z/OS release version 1.0.2. 
 
+For installation and configuration details of On-demand Development and Test environments for z/OS, see the [documentation page](https://www.ibm.com/docs/en/test-accelerator-for-z/1.0.0). 
 
-## Examples 
+The On-Demand Environments provider is intended to be used with IBM Terraform for Z and LinuxONE.
+To learn about the Terraform for Z components, and how to install, configure, and provision infrastructure for the product 
+offering, see the [documentation website](https://www.ibm.com/docs/en/terraform-z-linuxone).
 
-The following examples demonstrate the Terraform code to use the ODE provider in different scenarios.
+## Example Usage
 
-### Configuring the provider credentials
+The following examples demonstrate how to use the On-Demand Environments provider in different scenarios.
+
+### Example of configuring provider credentials
 
 ```terraform
 terraform {
@@ -40,9 +46,9 @@ provider "ode" {
 }
 ```
 
-### Example ODE provider with data source configuration
+### Example of provider with data source configuration
 
-The following example shows an ODE data source struct that you can use.
+The following example shows ode_image data source:
 
 ```terraform
 terraform {
@@ -59,6 +65,10 @@ provider "ode" {
   ode_host     = "https://your-ode-hostname:port"
   ode_username = "your-ode-user"
   ode_password = "your-ode-password"
+  ode_tls = {
+    ca_file     = file("/path/to/ca_file")
+    server_name = "your-ode-server-name-matching-ca-certificate"
+  }
 }
 
 ###########################################################
@@ -102,9 +112,9 @@ data "ode_image" "by_label_version_flat" {
 }
 ```
 
-### Example ODE provider with target configuration
+### Example of provider with target configuration
 
-The following example shows an ODE target source struct that you can use.
+The following example shows ode_target resource: 
 
 ```terraform
 terraform {
@@ -122,6 +132,10 @@ provider "ode" {
   ode_host     = "https://your-ode-hostname:port"
   ode_username = "your-ode-user"
   ode_password = "your-ode-password"
+  ode_tls = {
+    ca_file     = file("/path/to/ca_file")
+    server_name = "your-ode-server-name-matching-ca-certificate"
+  }
 }
 
 resource "ode_target" "from_json_match" {
@@ -172,9 +186,9 @@ resource "ode_target" "from_json_match" {
 }
 ```
 
-### Example of an ODE instance
+### Example of an instance
 
-The following example shows an ODE instance with data source and target resource that you can use.
+The following example shows an ode_instance resource with an ode_image data source and an ode_target resource: 
 
 ```terraform
 terraform {
@@ -191,6 +205,10 @@ provider "ode" {
   ode_host     = "https://your-ode-hostname:port"
   ode_username = "your-ode-user"
   ode_password = "your-ode-password"
+  ode_tls = {
+    ca_file     = file("/path/to/ca_file")
+    server_name = "your-ode-server-name-matching-ca-certificate"
+  }
 }
 
 data "ode_image" "zos_image" {
@@ -277,16 +295,16 @@ resource "ode_instance" "zos_25" {
 
 ### Optional
 
-- `ode_host` (String) Host for On-Demand Environments. This can also be sourced from the `ODE_HOST` environment variable.
-- `ode_password` (String, Sensitive) Password for On-Demand Environments authentication. This can also be sourced from the `ODE_PASSWORD` environment variable.
-- `ode_tls` (Attributes) Certificate for On-Demand Environments. (see [below for nested schema](#nestedatt--ode_tls))
-- `ode_username` (String) Username for On-Demand Environments authentication. This can also be sourced from the `ODE_USERNAME` environment variable.
+- `ode_host` (String) Host for On-Demand Environments. Alternatively, this value can be sourced from the `ODE_HOST` environment variable.
+- `ode_password` (String, Sensitive) Password for On-Demand Environments authentication. Alternatively, this value can be sourced from the `ODE_PASSWORD` environment variable.
+- `ode_tls` (Attributes) Certificate for On-Demand Environments. Optional only when defined through environment variables. (see [below for nested schema](#nestedatt--ode_tls))
+- `ode_username` (String) Username for On-Demand Environments authentication. Alternatively, this value can be sourced from the `ODE_USERNAME` environment variable.
 
 <a id="nestedatt--ode_tls"></a>
 ### Nested Schema for `ode_tls`
 
 Optional:
 
-- `ca_file` (String) CA file for On-Demand Environments. This can also be sourced from the ODE_TLS_CA_FILE environment variable.
-- `insecure_skip_verify` (Boolean) Insecure SSL certificate for On-Demand Environments. This can also be sourced from the ODE_TLS_INSECURE_SKIP_VERIFY environment variable.
-- `server_name` (String) Server name for On-Demand Environments. This can also be sourced from the ODE_TLS_SERVER_NAME environment variable.
+- `ca_file` (String) CA file for On-Demand Environments. Alternatively, this value can be sourced from the `ODE_TLS_CA_FILE` environment variable.
+- `insecure_skip_verify` (Boolean) Insecure SSL certificate for On-Demand Environments. Alternatively, this value can be sourced from the `ODE_TLS_INSECURE_SKIP_VERIFY` environment variable.
+- `server_name` (String) Server name for On-Demand Environments. Alternatively, this value can be sourced from the `ODE_TLS_SERVER_NAME` environment variable.

@@ -27,6 +27,10 @@ provider "ode" {
   ode_host     = "https://your-ode-hostname:port"
   ode_username = "your-ode-user"
   ode_password = "your-ode-password"
+  ode_tls = {
+    ca_file     = file("/path/to/ca_file")
+    server_name = "your-ode-server-name-matching-ca-certificate"
+  }
 }
 
 resource "ode_instance" "zos_25" {
@@ -56,42 +60,42 @@ resource "ode_instance" "zos_25" {
 
 ### Required
 
-- `general` (Attributes) General properties of provision (label, target, image, SSH key, etc.). (see [below for nested schema](#nestedatt--general))
+- `general` (Attributes) General properties of provision (label, target, image, SSH key, etc.) (see [below for nested schema](#nestedatt--general))
 
 ### Optional
 
 > **NOTE**: [Write-only arguments](https://developer.hashicorp.com/terraform/language/resources/ephemeral#write-only-arguments) are supported in Terraform 1.11 and later.
 
-- `emulator` (Attributes) Emulator or hardware resource allocations (CPU, RAM, etc.). (see [below for nested schema](#nestedatt--emulator))
-- `ipl` (Attributes) All IPL values will be used from the image specified. (see [below for nested schema](#nestedatt--ipl))
-- `ssh_target_key_file` (String, Sensitive, [Write-only](https://developer.hashicorp.com/terraform/language/resources/ephemeral#write-only-arguments)) Linux private key file content (Must specify if using key based SSH). This can also be sourced from the `SSH_KEY_FILE_PATH` environment variable.
-- `ssh_target_passphrase` (String, Sensitive, [Write-only](https://developer.hashicorp.com/terraform/language/resources/ephemeral#write-only-arguments)) Passphrase for the SSH key file, if encrypted. This can also be sourced from the `SSH_TARGET_PASSPHRASE` environment variable.
-- `ssh_target_password` (String, Sensitive, [Write-only](https://developer.hashicorp.com/terraform/language/resources/ephemeral#write-only-arguments)) Linux target password for SSH access (Must specify if not using SSH key). This can also be sourced from the `SSH_TARGET_PASSWORD` environment variable.
-- `ssh_target_user` (String, Sensitive, [Write-only](https://developer.hashicorp.com/terraform/language/resources/ephemeral#write-only-arguments)) Linux target username for SSH access. This can also be sourced from the `SSH_TARGET_USER` environment variable.
+- `emulator` (Attributes) Emulator or hardware resource allocations (CPU, RAM, etc.) (see [below for nested schema](#nestedatt--emulator))
+- `ipl` (Attributes) All IPL values will be used from the image specified (see [below for nested schema](#nestedatt--ipl))
+- `ssh_target_key_file` (String, Sensitive, [Write-only](https://developer.hashicorp.com/terraform/language/resources/ephemeral#write-only-arguments)) Linux private key file content (Must specify if using key based SSH). Alternatively, this value can be sourced from the `SSH_KEY_FILE_PATH` environment variable.
+- `ssh_target_passphrase` (String, Sensitive, [Write-only](https://developer.hashicorp.com/terraform/language/resources/ephemeral#write-only-arguments)) Passphrase for the SSH key file, if encrypted. Alternatively, this value can be sourced from the `SSH_TARGET_PASSPHRASE` environment variable.
+- `ssh_target_password` (String, Sensitive, [Write-only](https://developer.hashicorp.com/terraform/language/resources/ephemeral#write-only-arguments)) Linux target password for SSH access (Must specify if not using SSH key). Alternatively, this value can be sourced from the `SSH_TARGET_PASSWORD` environment variable.
+- `ssh_target_user` (String, Sensitive, [Write-only](https://developer.hashicorp.com/terraform/language/resources/ephemeral#write-only-arguments)) Linux target username for SSH access. Alternatively, this value can be sourced from the `SSH_TARGET_USER` environment variable.
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
-- `zos_creds` (Attributes) Credentials for z/OS. (see [below for nested schema](#nestedatt--zos_creds))
+- `zos_creds` (Attributes) Credentials for z/OS (see [below for nested schema](#nestedatt--zos_creds))
 
 ### Read-Only
 
 - `hostname` (String) The IP address assigned to the z/OS instance
-- `provision_uuid` (String) The unique provision ID returned by ODE after provisioning starts.
-- `status` (String) Current provision status (e.g., 'in_progress', 'completed', 'failed').
+- `provision_uuid` (String) The unique provision ID returned by On-Demand Environments after provisioning starts
+- `status` (String) Current provision status (e.g., 'in_progress', 'completed', 'failed')
 
 <a id="nestedatt--general"></a>
 ### Nested Schema for `general`
 
 Required:
 
-- `image_uuid` (String) UUID of the ODE image (stock image only).
-- `label` (String) Label or name for provisioned instance.
-- `target_uuid` (String) UUID of the Linux target environment.
+- `image_uuid` (String) The UUID of image (stock image only)
+- `label` (String) Label or name for provisioned instance
+- `target_uuid` (String) UUID of the Linux target environment
 
 Optional:
 
-- `deployment_directory` (String) Directory path on the target system for deployment.
-- `description` (String) Optional description for the provisioned instance.
-- `ssh_public_key` (String) Public SSH key to inject if provisioning a stock image.
-- `sysres_component_uuid` (String) UUID of the system component that will be used to provision this instance.
+- `deployment_directory` (String) Directory path on the target system for deployment
+- `description` (String) Optional description for the provisioned instance
+- `ssh_public_key` (String) Public SSH key to inject if provisioning a stock image
+- `sysres_component_uuid` (String) UUID of the system component that will be used to provision an instance
 
 
 <a id="nestedatt--emulator"></a>
@@ -99,12 +103,12 @@ Optional:
 
 Required:
 
-- `cp` (Number) Number of CP (general-purpose) engines.
-- `ram` (Number) Amount of RAM in bytes (e.g., 8589934592 for 8 GiB).
+- `cp` (Number) Number of CP (general-purpose) engines
+- `ram` (Number) Amount of RAM in bytes (e.g., 8589934592 for 8 GiB)
 
 Optional:
 
-- `ziip` (Number) Number of zIIP engines to allocate. 0 if none.
+- `ziip` (Number) Number of zIIP engines to allocate, 0 if none
 
 
 <a id="nestedatt--ipl"></a>
@@ -113,8 +117,8 @@ Optional:
 Required:
 
 - `device_address` (String) The device address in the devmap of the volume that contains the initial load program of z/OS
-- `iodf_address` (String) The device address where IPL process will look for the IODF data set and SYSn.IPLPARM.
-- `load_suffix` (String) The suffix for the LOADxx member in SYSn.IPLPARM or SYS1.PARMLIB.
+- `iodf_address` (String) The device address where IPL process will look for the IODF data set and SYSn.IPLPARM
+- `load_suffix` (String) The suffix for the LOADxx member in SYSn.IPLPARM or SYS1.PARMLIB
 
 
 <a id="nestedatt--timeouts"></a>
@@ -131,8 +135,8 @@ Optional:
 
 Required:
 
-- `password` (String, Sensitive) z/OS system password.
-- `username` (String) z/OS system username.
+- `password` (String, Sensitive) z/OS system password
+- `username` (String) z/OS system username
 
 ## Import
 

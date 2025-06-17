@@ -1,8 +1,8 @@
-# On-Demand Environments provider (ODE)
+# On-Demand Environments provider
 
-The On-Demand Environments (ODE) provider allows managing of z/OS instances and Linux targets as Terraform resources.
+The On-Demand Environments provider is used to manage On-Demand z/OS Environments with IBM Test Accelerator for Z as Terraform resources.
 
-ODE is a component within IBM Test Accelerator for Z. For more details regarding IBM Test Accelerator for Z or ODE, visit the official documentation [site](https://www.ibm.com/products/test-accelerator-z).
+ On-Demand Environments is a component within IBM Test Accelerator for Z. For more details regarding IBM Test Accelerator for Z or  On-Demand Environments, visit the official documentation [site](https://www.ibm.com/products/test-accelerator-z).
 
 ## Usage Example
 
