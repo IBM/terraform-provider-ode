@@ -1,31 +1,31 @@
 ---
-page_title: "Provisioning a z/OS Instance with IBM ODE Provider and Changing Password with Ansible"
+page_title: "Provisioning a z/OS Instance with On-Demand Environments provider and Changing Password with Ansible"
 subcategory: ""
 description: |-
   The following demonstrates how Ansible and Terraform can be used together to achieve Infrastructure as Code and Configuration as Code.
 ---
 
-# Provisioning a z/OS Instance with IBM ODE Provider and Changing Password with Ansible
-Terraform and Ansible are powerful tools that, when combined, enable a seamless workflow for provisioning and configuring infrastructure. Let’s break down how they work together in this practical use case.
+# Provisioning a z/OS Instance with On-Demand Environments provider and Changing Password with Ansible
+Terraform and Ansible are powerful tools that, when combined, enable a seamless workflow for provisioning and configuring infrastructure.
 
 ## Terraform: Infrastructure as Code (IaC)
-Terraform is used to provision infrastructure. It defines resources like virtual machines, networks, and storage using declarative configuration files. In the tutorial:
+Terraform is used to provision infrastructure. It defines resources like virtual machines, networks, and storage by using declarative configuration files. In this guide:
 
-- Terraform uses the IBM ODE provider to provision a z/OS instance.
-- It defines the instance’s properties (CPU, RAM, image, SSH keys, etc.) in a `main.tf` file.
-- It also dynamically creates an Ansible inventory using the `ansible_host` resource.
+- Terraform uses the On-Demand Environments provider to provision a z/OS instance.
+- It defines the instance’s properties (CPU, RAM, image, SSH keys, and more) in a `main.tf` file.
+- It also dynamically creates an Ansible inventory by using the `ansible_host` resource.
 
 ## Ansible: Configuration as Code (CaC)
-Ansible is used to configure the provisioned infrastructure. It connects to the instance and executes tasks like installing software, changing settings, or managing users. In the guide:
+Ansible is used to configure the provisioned infrastructure. It connects to the instance and executes tasks like installing software, changing settings, or managing users. In this guide:
 
-- An Ansible playbook (change_ibmuser_password.yml) is used to change the ibmuser password on the z/OS instance.
-- The playbook is triggered automatically after provisioning using Terraform’s `local-exec` provisioner.
+- You use an Ansible playbook (change_ibmuser_password.yml) to change the ibmuser password on the z/OS instance.
+- The playbook is triggered automatically after provisioning by using Terraform’s `local-exec` provisioner.
 
-# Workflow Integration: Step-by-Step
+# Workflow integration steps
 Here’s how Terraform and Ansible work together in this use case:
 
-1. Provision with Terraform
-Terraform provisions the z/OS instance using the IBM ODE provider:
+1. Provision with Terraform - 
+Terraform provisions the z/OS instance using the On-Demand Environments provider:
    ```
 
    resource "ode_instance" "demo-zos-env" {
@@ -33,7 +33,7 @@ Terraform provisions the z/OS instance using the IBM ODE provider:
    }
    ```
 
-2. Generate Ansible Inventory
+2. Generate Ansible Inventory - 
 Terraform dynamically creates an Ansible inventory entry:
    ```
 
@@ -47,8 +47,7 @@ Terraform dynamically creates an Ansible inventory entry:
    }
    ```
 
-   Use Ansible inventory plugin as:
-   inventory.yml
+   Use the Ansible inventory plugin as inventory.yml:
    ```
    ---
    plugin: cloud.terraform.terraform_provider
@@ -57,7 +56,7 @@ Terraform dynamically creates an Ansible inventory entry:
 
    This ensures Ansible knows how to connect to the new instance.
 
-1. Trigger Ansible Automatically
+3. Trigger Ansible Automatically - 
 Terraform uses a null_resource with a local-exec provisioner to run the Ansible playbook:
    ```
 
@@ -71,8 +70,8 @@ Terraform uses a null_resource with a local-exec provisioner to run the Ansible 
 
    This bridges the gap between provisioning and configuration.
 
-1. Configure with Ansible
-The Ansible playbook connects to the instance and changes the password using Ansible Core for z/OS `zos_tso_command` module:
+4. Configure with Ansible - 
+The Ansible playbook connects to the provisioned instance and changes the password by using Ansible Core for z/OS `zos_tso_command` module:
    ```
 
    - name: Change ibmuser password
@@ -100,9 +99,9 @@ The Ansible playbook connects to the instance and changes the password using Ans
    ````
 
 
-# Benefits of This Integration
-- Automation: No manual steps between provisioning and configuration.
-- Consistency: Infrastructure and configuration are version-controlled and repeatable.
-- Scalability: Easily scale to multiple instances or environments.
+# Benefits of this integration
+- Automation: No manual steps between provisioning and configuration
+- Consistency: Infrastructure and configuration are version-controlled and repeatable
+- Scalability: Easily scale to multiple instances or environments
 
-For sample codes, please visit https://github.com/IBM/terraform-ibm-z-linuxone-samples
+For sample code, please visit https://github.com/IBM/terraform-ibm-z-linuxone-samples
