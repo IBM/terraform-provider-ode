@@ -152,7 +152,11 @@ func parseEvent(r io.Reader) (Data, error) {
 }
 
 // evaluateData checks the data and returns a terminal error if any.
+// It returns nil when the data contains no error payload.
 func evaluateData(data Data) error {
+	if data.Error == nil {
+		return nil
+	}
 	msg := data.Error.Message
 	if decoded, err := url.QueryUnescape(msg); err == nil {
 		msg = decoded
